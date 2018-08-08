@@ -1,0 +1,9 @@
+matplotlib
+pandas
+numpy
+scipy
+plotly
+GEOS
+Pillow
+jupyter
+nltk

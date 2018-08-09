@@ -1,51 +1,51 @@
 import pandas as pd
 import json
-
-class CSVread(object):
-
-
-    def __init__(self, file):
-        # self.file = file
+from pandas.io.json import json_normalize
+import xml.etree.ElementTree as ET
 
 
-    def get_file(self):
+class documentHandler:
 
-        self.reader = pd.read_csv(self.file)
+    def __init__(self):
+        pass
+
+    def get_csv(self, path):
+        self.reader = pd.read_csv(path)
         return self.reader
 
+    def get_json(self, path):
+        with open(path) as self.reader:
+            file = json.load(self.reader)
+            return file
 
-    def printdata(self):
-        print(self.reader)
+    def json_to_df(self, normalizer, path):
+
+        # with open(path) as self.reader:
+        #     file = json.load(self.reader)
+         # self.get_json(path)
+
+        data_frame = json_normalize(self.get_json(path)[normalizer])
+        return data_frame
+
+    def xml_reader(self, path):
+        tree = ET.parse(path)
+        root = tree.getroot()
+        for elem in root:
+
+            print(elem.tag, ': ', elem.text)
+            for subelem in elem:
+                print('    ', subelem.tag, ': ', subelem.text)
+
+                for subsubelem in subelem:
+                    print('         ', subsubelem.tag, ': ', subsubelem.text)
 
 
-
-class JsonRead(object):
-    def __init__(self, file):
-        self.file = file
-
-    def get_file(self):
-        with open(self.file) as self.reader:
-            self.file = json.load(self.reader)
-            return self.reader
-
-    def printJson(self):
-        print(self.reader)
-
+dh = documentHandler()
+ax = dh.get_json('data\\DE_category_id.json')
+axx = dh.json_to_df('items', 'data\\DE_category_id.json')
+axxx = dh.xml_reader('C:\\workspace\\config.xml')
 
 #
-# import nltk
-#
-# nltk.data.
+# axxx.show(limit=10)
 
-
-#
-denek = CSVread('bakalim.csv')
-denek.get_file()
-# print(denek)
-
-# json_deneme = JsonRead('DE_category_id.json')
-# json_deneme = json_deneme.get_file()
-# json_deneme.printdata()
-# for x in range(45):
-#     for item in json_deneme['items'][x]['id'].splitlines():
-#             print('ID:' + item)
+print(axx)

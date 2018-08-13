@@ -4,26 +4,25 @@ from pandas.io.json import json_normalize
 import xml.etree.ElementTree as ET
 
 
-class documentHandler:
+class DocumentHandler:
 
     def __init__(self):
         pass
 
     def get_csv(self, path):
-        self.reader = pd.read_csv(path)
-        return self.reader
+        reader = pd.read_csv(path)
+        return reader
 
     def get_json(self, path):
-        with open(path) as self.reader:
-            file = json.load(self.reader)
+        with open(path) as reader:
+            file = json.load(reader)
             return file
 
     def get_tsv(self, path):
-        self.reader = pd.read_csv(path, delimiter="\t")
-        return self.reader
+        reader = pd.read_csv(path, delimiter="\t")
+        return reader
 
     def json_to_df(self, normalizer, path):
-
         # with open(path) as self.reader:
         #     file = json.load(self.reader)
         # self.get_json(path)
@@ -37,45 +36,38 @@ class documentHandler:
         for elem in root:
 
             print(elem.tag, ': ', elem.text)
-            for subelem in elem:
-                print('    ', subelem.tag, ': ', subelem.text)
+            for sub_elem in elem:
+                print('\t', sub_elem.tag, ': ', sub_elem.text)
 
-                for subsubelem in subelem:
-                    print('         ', subsubelem.tag, ': ', subsubelem.text)
+                for subsubelem in sub_elem:
+                    print('\t\t', subsubelem.tag, ': ', subsubelem.text)
 
     def get_text(self, path):
         f = open(path)
-        yourList = f.readlines()
-        return yourList
+        your_list = f.readlines()
+        return your_list
 
     def read_doc(self, ek):
 
-        if ek.split(".",1)[1] == 'csv':
+        if ek.split(".", 1)[1] == 'csv':
             return self.get_csv(ek)
 
-        elif ek.split(".",1)[1] == 'json':
+        elif ek.split(".", 1)[1] == 'json':
             return self.get_json(ek)
 
-        elif ek.split(".",1)[1] == 'tsv':
+        elif ek.split(".", 1)[1] == 'tsv':
             return self.get_tsv(ek)
 
-        elif ek.split(".",1)[1] == 'xml':
+        elif ek.split(".", 1)[1] == 'xml':
             return self.xml_reader(ek)
         else:
             return self.get_text(ek)
-
 
     def show(self, doc):
         print(doc)
 
 
-
-
-
-
-
-
-dh = documentHandler()
+dh = DocumentHandler()
 ax = dh.read_doc('C:\\workspace\\notebook\\data\\oldu.csv')
 dh.show(ax)
 # ax = dh.get_json('C:\\workspace\\notebook\\data\\DE_category_id.json')

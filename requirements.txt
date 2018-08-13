@@ -7,3 +7,4 @@ GEOS
 Pillow
 jupyter
 nltk
+sklearn

@@ -9,8 +9,6 @@ class documentHandler:
     def __init__(self):
         pass
 
-
-
     def get_csv(self, path):
         self.reader = pd.read_csv(path)
         return self.reader
@@ -21,7 +19,7 @@ class documentHandler:
             return file
 
     def get_tsv(self, path):
-        self.reader = pd.read_csv(path, delimiter ="\t")
+        self.reader = pd.read_csv(path, delimiter="\t")
         return self.reader
 
     def json_to_df(self, normalizer, path):
@@ -50,9 +48,37 @@ class documentHandler:
         yourList = f.readlines()
         return yourList
 
+    def read_doc(self, ek):
 
-# dh = documentHandler()
-# ax = dh.get_json('data\\DE_category_id.json')
+        if ek.split(".",1)[1] == 'csv':
+            return self.get_csv(ek)
+
+        elif ek.split(".",1)[1] == 'json':
+            return self.get_json(ek)
+
+        elif ek.split(".",1)[1] == 'tsv':
+            return self.get_tsv(ek)
+
+        elif ek.split(".",1)[1] == 'xml':
+            return self.xml_reader(ek)
+        else:
+            return self.get_text(ek)
+
+
+    def show(self, doc):
+        print(doc)
+
+
+
+
+
+
+
+
+dh = documentHandler()
+ax = dh.read_doc('C:\\workspace\\notebook\\data\\oldu.csv')
+dh.show(ax)
+# ax = dh.get_json('C:\\workspace\\notebook\\data\\DE_category_id.json')
 # axx = dh.json_to_df('items', 'data\\DE_category_id.json')
 # axxx = dh.xml_reader('C:\\workspace\\config.xml')
 

@@ -67,9 +67,6 @@ class DocumentHandler:
         print(doc)
 
 
-dh = DocumentHandler()
-ax = dh.read_doc('C:\\workspace\\notebook\\data\\oldu.csv')
-dh.show(ax)
 # ax = dh.get_json('C:\\workspace\\notebook\\data\\DE_category_id.json')
 # axx = dh.json_to_df('items', 'data\\DE_category_id.json')
 # axxx = dh.xml_reader('C:\\workspace\\config.xml')
